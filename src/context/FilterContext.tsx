@@ -1,6 +1,6 @@
 import { useContext, useState, createContext, FC } from 'react';
 import { InputEvent, FilterType, IInitialState, FilterContextValue, FilterTags } from '../types';
-import { filterPlainArray } from '../util';
+import { filterPlainArray, updateState } from '../util';
 
 import shapeColors from '../data';
 
@@ -45,16 +45,7 @@ export const FilterProvider: FC = ({ children }) => {
 
   const updateFilter = (e: InputEvent, filterType: FilterType) => {
     const { name } = e.target;
-    setState(prevState => ({
-      filters: {
-        ...prevState.filters,
-        [filterType]: {
-          ...prevState.filters[filterType],
-          [name]: !prevState.filters[filterType][name]
-        }
-      },
-      data: [...prevState.data]
-    }));
+    updateState(setState, filterType, name)
   };
 
 
@@ -73,7 +64,7 @@ export const FilterProvider: FC = ({ children }) => {
   };
 
 
-  // The filterTags[] is applied on the array of colorful shape
+  // The filterTags is applied on the array of colorful shape
   // objects and the returns a filtered array that passed the criterias
   const multiFilter = () => {
     const filteredShapes = filterPlainArray(
@@ -98,30 +89,12 @@ export const FilterProvider: FC = ({ children }) => {
 
     for (let colorKey in colors) {
       filterTags.color.push(colorKey);
-      setState(prevState => ({
-        filters: {
-          ...prevState.filters,
-          'colors': {
-            ...prevState.filters['colors'],
-            [colorKey]: !prevState.filters['colors'][colorKey]
-          }
-        },
-        data: [...prevState.data]
-      }));
+      updateState(setState, 'colors', colorKey);
     }
 
     for (let shapeKey in shapes) {
       filterTags.shape.push(shapeKey);
-      setState(prevState => ({
-        filters: {
-          ...prevState.filters,
-          'shapes': {
-            ...prevState.filters['shapes'],
-            [shapeKey]: !prevState.filters['shapes'][shapeKey]
-          }
-        },
-        data: [...prevState.data]
-      }));
+      updateState(setState, 'shapes', shapeKey);
     }
   }
 
