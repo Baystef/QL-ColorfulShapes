@@ -1,4 +1,4 @@
-import {  ShapeFilterType, Shapes, FilterTags } from '../types';
+import {  ShapeFilterType, Shapes, IFilterTags } from '../types';
 
 //ref: https://gist.github.com/jherax/f11d669ba286f21b7a2dcff69621eb72
 /**
@@ -9,7 +9,7 @@ import {  ShapeFilterType, Shapes, FilterTags } from '../types';
    * @param  filters: The object containing arrays of filter tags
    * @returns The filtered array
    */
- function filterPlainArray(arr: Shapes[], filters: FilterTags) {
+ function filterPlainArray(arr: Shapes[], filters: IFilterTags) {
   const filterKeys = (Object.keys(filters) as string[]);
   return arr.filter((item: Shapes) => {
     //@ts-ignore

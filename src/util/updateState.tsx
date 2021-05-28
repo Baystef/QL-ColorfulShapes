@@ -1,4 +1,4 @@
-import { FilterType } from '../types';
+import { FilterType, IInitialState } from '../types';
 
 /**
    * @remarks 
@@ -9,8 +9,8 @@ import { FilterType } from '../types';
    * @param  key - The key is a string of either 'colors' | 'shapes'
    * @param  value - The color or shape key to be updated in the state object 
    */
-const updateState = (setState: React.Dispatch<React.SetStateAction<any>>, key: FilterType, value: string) => {
-  setState((prevState: { filters: { [x: string]: { [x: string]: any; }; }; data: any; }) => ({
+const updateState = (setState: React.Dispatch<React.SetStateAction<IInitialState>>, key: FilterType, value: string) => {
+  setState((prevState: IInitialState) => ({
     filters: {
       ...prevState.filters,
       [key]: {

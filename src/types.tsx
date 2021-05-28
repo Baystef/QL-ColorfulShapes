@@ -14,33 +14,33 @@ export interface IUser {
   password: string
 }
 
-export interface AuthContextValue {
+export interface IAuthContextValue {
   signin(data: IUser): void, 
   logout(): boolean,
   user: {},
   authenticated: boolean 
 }
 
-export interface FilterTypes {
+export interface IFilterTypes {
   [key: string]: boolean
 }
 
-export interface FilterTags {
+export interface IFilterTags {
   color: string[],
   shape: string[]
 }
 
 export interface IInitialState {
   filters: {
-    colors: FilterTypes,
-    shapes: FilterTypes
+    colors: IFilterTypes,
+    shapes: IFilterTypes
   },
   data: Shapes[],
 }
 
-export interface FilterContextValue {
+export interface IFilterContextValue {
   state: IInitialState;
   updateFilter(e: InputEvent, filterType: FilterType): void;
   filteredShapesColors: Shapes[],
-  filterTags: FilterTags
+  filterTags: IFilterTags
 }

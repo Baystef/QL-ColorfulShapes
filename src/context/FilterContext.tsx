@@ -1,5 +1,5 @@
 import { useContext, useState, createContext, FC } from 'react';
-import { InputEvent, FilterType, IInitialState, FilterContextValue, FilterTags } from '../types';
+import { InputEvent, FilterType, IInitialState, IFilterContextValue, IFilterTags } from '../types';
 import { filterPlainArray, updateState } from '../util';
 
 import shapeColors from '../data';
@@ -26,7 +26,7 @@ const initialState = {
   data: shapeColors
 }
 
-export const FilterContext = createContext<FilterContextValue>({
+export const FilterContext = createContext<IFilterContextValue>({
   state: initialState,
   updateFilter() { },
   filteredShapesColors: [],
@@ -38,7 +38,7 @@ export const FilterContext = createContext<FilterContextValue>({
 
 export const FilterProvider: FC = ({ children }) => {
   const [state, setState] = useState<IInitialState>(initialState);
-  let filterTags: FilterTags = {
+  let filterTags: IFilterTags = {
     color: [],
     shape: [],
   };;
@@ -66,17 +66,10 @@ export const FilterProvider: FC = ({ children }) => {
 
   // The filterTags is applied on the array of colorful shape
   // objects and the returns a filtered array that passed the criterias
-  const multiFilter = () => {
-    const filteredShapes = filterPlainArray(
-      state.data,
-      filteredTags()
-    );
-
-    return filteredShapes;
-  };
-
-  // The filtered data array
-  let filteredShapesColors = multiFilter();
+  let filteredShapesColors = filterPlainArray(
+    state.data,
+    filteredTags()
+  );;
 
 
   // When last item is deselected, reset tags and state

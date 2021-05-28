@@ -1,6 +1,6 @@
 import { useContext, useState, createContext, FC } from 'react';
 import { useHistory } from 'react-router-dom';
-import { IUser, AuthContextValue } from '../types';
+import { IUser, IAuthContextValue } from '../types';
 
 
 const initialState = {
@@ -12,11 +12,11 @@ const initialState = {
 
 const userBase: IUser[] = [{ userName: 'solomon', password: 'grandy' }]
 
-export const AuthContext = createContext<AuthContextValue>(initialState);
+export const AuthContext = createContext<IAuthContextValue>(initialState);
 
 export const AuthProvider: FC = ({ children }) => {
-  const [user, setUser] = useState({});
-  const [authenticated, setAuthenticated] = useState(JSON.parse(localStorage.getItem('QL-Auth') || '{}') || false);
+  const [user, setUser] = useState<IUser | {}>({});
+  const [authenticated, setAuthenticated] = useState<boolean>(JSON.parse(localStorage.getItem('QL-Auth') || '{}') || false);
   const history = useHistory();
  
   const signin = (userdata: IUser) => {
